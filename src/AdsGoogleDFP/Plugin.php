@@ -71,8 +71,7 @@ class Plugin extends Config
 
     public function registerHeader()
     {
-        add_action("wp_head", [$this->header, 'printExtraScripts']);
-        add_action("wp_head", [$this->header, 'printGoogleDFPScript']);
+        add_action("wp_head", [$this->header, 'injectGoogleDFPScript']);
     }
 
     public function registerWidget()

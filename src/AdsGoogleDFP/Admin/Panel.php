@@ -1,7 +1,6 @@
 <?php
 namespace AdsGoogleDFP\Admin;
 
-use AdsGoogleDFP\Admin\ExtraScripts;
 use AdsGoogleDFP\TwigViewer;
 use AdsGoogleDFP\Models\WpGoogleDFP;
 
@@ -13,20 +12,14 @@ class Panel extends WpGoogleDFP
     public $icon = 'dashicons-megaphone';
     public $permission = 'administrator';
     public $actionStatus;
-    public $legacyExtraScripts;
 
     public function init()
     {
-        $this->legacyExtraScripts = new ExtraScripts();
-        
-        $this->legacyExtraScripts->registerSettings();
-
         add_action('admin_enqueue_scripts', [$this, 'enqueuePanelDeps']);
         add_menu_page('Google DFP Publicidade', 'Google DFP Publicidade', $this->permission, $this->panelSlug, [$this, 'renderUrlsPage'], $this->icon, 31);
         add_submenu_page($this->panelSlug, 'URLs', 'URLs', $this->permission, 'google-dfp-urls', [$this, 'renderUrlsPage']);
         add_submenu_page($this->panelSlug, 'Grupos de formatos', 'Grupos de formatos', $this->permission, 'google-dfp-grupos-de-formatos', [$this, 'renderFormatGroupsPage']);
         add_submenu_page($this->panelSlug, 'Como funciona?', 'Como funciona?', $this->permission, 'google-dfp-docs', [$this, 'renderDocsPage']);
-        add_submenu_page($this->panelSlug, 'Scripts', 'Scripts', $this->permission, 'google-dfp-scripts', [$this->legacyExtraScripts, 'renderPage']);
     }
 
     public function enqueuePanelDeps()

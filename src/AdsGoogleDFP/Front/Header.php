@@ -6,16 +6,7 @@ use AdsGoogleDFP\Models\WpGoogleDFP;
 
 class Header extends WpGoogleDFP
 {
-    public function printExtraScripts()
-    {
-        $extra = get_option("extrascripts");
-    
-        if (!empty($extra)) {
-            echo $extra;
-        }
-    }
-
-    public function printGoogleDFPScript()
+    public function injectGoogleDFPScript()
     {
         $content = $this->createScriptContent();
         echo TwigViewer::render("gdfp_header.html", $content);
