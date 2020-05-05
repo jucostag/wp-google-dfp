@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+	<title>Google DFP</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="../tiny_mce_popup.min.js"></script>
+	
+	<style type="text/css">
+		label { font-size: 12px; }
+		input[type="text"] { padding: 5px; height: 25px; }
+	</style>
+
+	<script type="text/javascript">
+		var gdfpSlotDialog = {
+			local_ed : 'ed',
+			init : function(ed) {
+				gdfpSlotDialog.local_ed = ed;
+				tinyMCEPopup.resizeToInnerSize();
+			},
+			insert : function insertGdfpSlot(ed) {
+
+				tinyMCEPopup.execCommand('mceRemoveNode', false, null);
+		 
+				var area = jQuery('#gdfpslot-dialog input#gdfpslot-area').val(),
+				format = jQuery('#gdfpslot-dialog input#gdfpslot-format').val(),
+				before = jQuery('#gdfpslot-dialog select#gdfpslot-before').val(),
+				ad_class = jQuery('#gdfpslot-dialog input#gdfpslot-ad_class').val(),
+				title_class = jQuery('#gdfpslot-dialog input#gdfpslot-title_class').val(),		
+				output = '[gdfp_slot';
+		 
+					if (area) {
+						output += ' area="' + area + '"';
+					}
+
+					if (format) {
+						output += ' format="' + format + '"';
+					}
+					
+					if (before != 'null') {
+						output += ' before="' + before + '"';
+					}
+
+					if (ad_class) {
+						output += ' ad_class="' + ad_class + '"';
+					}
+
+					if (title_class) {
+						output += ' title_class="' + title_class + '"';
+					}
+
+				output += ']';
+				
+				tinyMCEPopup.execCommand('mceReplaceContent', false, output);
+				tinyMCEPopup.close();
+			}
+		};
+
+		tinyMCEPopup.onInit.add(gdfpSlotDialog.init, gdfpSlotDialog);
+	</script>
+
+</head>
+<body>
+	<div id="gdfpslot-dialog">
+		
+		<form action="/" method="get" accept-charset="utf-8" class="form-horizontal">
+			<div class="container">
+				<h3>
+					Inserir banner<br>
+					<small>Script on page para exibir o conteúdo do espaço publicitário.</small>
+				</h3>
+				<hr>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label" for="gdfpslot-area">Area:</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="text" name="gdfpslot-area" value="" id="gdfpslot-area" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label" for="gdfpslot-format">Formato:</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="text" name="gdfpslot-format" value="" id="gdfpslot-format" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label" for="gdfpslot-before">Colocar anúncio antes de:</label>
+					<div class="col-xs-8">
+						<select class="form-control" name="gdfpslot-before" id="gdfpslot-before" size="1">
+							<option value="null"> -- Selecione -- </option>
+							<option value="title">Título h1</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label" for="gdfpslot-ad_class">Classes adicionais do container (separadas por espaço):</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="text" name="gdfpslot-ad_class" value="" id="gdfpslot-ad_class" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label" for="gdfpslot-title_class">Classes adicionais do título da página (separadas por espaço):</label>
+					<div class="col-xs-4">
+						<input class="form-control" type="text" name="gdfpslot-title_class" value="" id="gdfpslot-title_class" />
+					</div>
+				</div>
+			
+				<hr>
+				<p>	
+					<a class="btn btn-block btn-default" href="javascript:gdfpSlotDialog.insert(gdfpSlotDialog.local_ed)" id="inserto">Inserir shortcode</a>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

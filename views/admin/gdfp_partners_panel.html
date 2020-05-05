@@ -1,0 +1,30 @@
+<div class="wrap">
+    <h2>Google DFP - Configurações de Parceiros</h2>
+
+    <form method="post" action="options.php">
+    
+        {{ settings_fields | raw }}
+        
+        {{ do_sections | raw }}
+
+        <table class="form-table">
+            <tr valign="top">
+                <td>
+                    <input type="checkbox" name="gdfp_teads_partner" value="true" {% if teads_partner_field == 'true' %}checked="true"{% endif %}/> TEADS<br> 
+                    <i>Habilita o TEADS apenas em posts, no formato in_read.</i><br><br>
+                    <input type="checkbox" name="gdfp_simple_ads_partner" value="true" {% if simple_ads_partner_field == 'true' %}checked="true"{% endif %}/> SimpleAds<br> 
+                    <i>Habilita o SimpleAds apenas em posts, no formato in_read.</i><br><br>
+                    <input type="checkbox" name="gdfp_denakop_partner" value="true" {% if denakop_partner_field == 'true' %}checked="true"{% endif %}/> Denakop<br> 
+                    <i>Habilita o Denakop em todo o site, no formato banner fixo.</i><br><br>
+                    <input type="checkbox" name="gdfp_clevernt_partner" value="true" {% if clevernt_partner_field == 'true' %}checked="true"{% endif %}/> Clevernt<br> 
+                    <i>Habilita o Clevernt em todo o site, no formato eXcroll.</i><br><br>
+                    <input type="checkbox" name="gdfp_seedtag_partner" value="true" {% if seedtag_partner_field == 'true' %}checked="true"{% endif %}/> Seedtag<br> 
+                    <i>Habilita o Seedtag em posts galeria, no formato in-image.</i><br><br>
+                </td>
+            </tr>
+        </table>
+        
+        {{ submit_button | raw }}
+    
+    </form>
+</div>

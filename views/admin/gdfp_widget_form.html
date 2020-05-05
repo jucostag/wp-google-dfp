@@ -1,0 +1,27 @@
+<p>
+    <label for="{{ title.id }}">Título:</label> 
+    <input class="widefat" id="{{ title.id }}" name="{{ title.name }}" type="text" value="{{ title.value }}" />
+</p>
+<p>
+    <label for="{{ area.id }}">Área:</label> 
+    <input class="widefat" id="{{ area.id }}" name="{{ area.name }}" type="text" value="{{ area.value }}" />
+</p>
+<p>
+    <label for="{{ format.id }}">Formato:</label> 
+    <input class="widefat" id="{{ format.id }}" name="{{ format.name }}" type="text" value="{{ format.value }}" />
+</p>
+<p>
+    <label for="{{ before.id }}">Colocar anúncio antes de:</label> 
+    <select class="widefat" id="{{ before.id }}" name="{{ before.name }}">
+        <option> -- Selecione -- </option>
+        <option value="title" {% if before.value == 'title' %} selected="selected" {% endif %}>Título h1</option>
+    </select>
+</p>
+<p>
+    <label for="{{ ad_class.id }}">Classes adicionais do container (separadas por espaço):</label> 
+    <input class="widefat" id="{{ ad_class.id }}" name="{{ ad_class.name }}" type="text" value="{{ ad_class.value }}" />
+</p>
+<p>
+    <label for="{{ title_class.id }}">Classes adicionais do título da página (separadas por espaço):</label> 
+    <input class="widefat" id="{{ title_class.id }}" name="{{ title_class.name }}" type="text" value="{{ title_class.value }}" />
+</p>

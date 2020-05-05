@@ -1,0 +1,29 @@
+{
+  "name": "WPGoogleDFP",
+  "version": "1.0.0",
+  "description": "Plugin that integrates Google Double Click with WP.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ttps://github.com/jucostag/wp-google-dfp"
+  },
+  "keywords": [
+    "wordpress",
+    "double_click",
+    "google"
+  ],
+  "author": "Juliana Gonçalves",
+  "license": "GPL",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5"
+  }
+}

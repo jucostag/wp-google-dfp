@@ -1,0 +1,21 @@
+<div class="tablenav-pages one-page" style="margin: 20px 0">
+    <span class="displaying-num">{{ paginacao.total }} no total</span>
+    <span class="pagination-links">
+        <a href="{{ paginacao.primeira_pagina }}" style="text-decoration: none;">
+            <span class="tablenav-pages-navspan" aria-hidden="true">«</span>
+        </a>
+        <a href="{{ paginacao.anterior }}"  style="text-decoration: none;">
+            <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
+        </a>
+        <span class="screen-reader-text">Página atual</span>
+        <span id="table-paging" class="paging-input">
+            <span class="tablenav-paging-text">{{ paginacao.pagina_atual }} de <span class="total-pages">{{ paginacao.total_paginas }}</span></span>
+        </span>
+        <a href="{{ paginacao.proxima }}"  style="text-decoration: none;">
+            <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
+        </a>
+        <a href="{{ paginacao.ultima_pagina }}"  style="text-decoration: none;">
+            <span class="tablenav-pages-navspan" aria-hidden="true">»</span>
+        </a>
+    </span>
+</div>

@@ -1,0 +1,352 @@
+<div class="google_dfp wrap docs">
+    <h1>Google DFP Publicidade | Como funciona?</h1>
+
+    <div class="columns">
+        <div class="nav">
+            <ul>
+                <li><a href="#criacao_bloco_publicidade">Criação do slot padrão no Google Double Click</a>
+                    <ol>
+                        <li><a href="#para_que_serve">Para que serve?</a></li>
+                        <li><a href="#mapeamento_padrao">Como o mapeamento de formatos padrão funciona?</a></li>
+                    </ol>
+                </li>
+                <li><a href="#padroes_nomenclatura">Padrões de nomenclatura dos slots</a>
+                    <ol>
+                        <li><a href="#mapeamento_por_url">Como o mapeamento de formatos por URL funciona?</a></li>
+                    </ol>
+                </li>
+                <li><a href="#pre_definicoes">Pré-definições do plugin</a>
+                    <ol>
+                        <li><a href="#size_mapping">Size Mapping</a></li>
+                        <li><a href="#enable_single_request">Enable Single Request</a></li>
+                        <li><a href="#collapse_empty_divs">Collapse Empty Divs</a></li>
+                        <li><a href="#arquivo_de_configuracao">Arquivo de configuração</a></li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Como começar?</h2>
+
+            <div id="criacao_bloco_publicidade">
+                <h3>Criação do slot padrão no Google Double Click</h3>
+
+                <p>Para começar a utilizar o plugin, deve-se cadastrar no painel do <strong>Google Double Click</strong>
+                um slot (bloco) com o nome de <strong>default</strong>. Ele deve conter a definição dos espaços 
+                <strong>middle</strong> e <strong>top</strong>. As configurações de <a href="#size_mapping">size mapping</a>,
+                <a href="#collapse_empty_divs">collapseEmptyDivs</a> e <a href="#enable_single_request">enableSingleRequest</a> 
+                já estão pré-definidas na impressão do script no header.</p>
+                
+                <hr>
+
+                <div class="para_que_serve">
+                    <h4>Para que serve?</h4>
+
+                    <p>Quando uma nova categoria ou página é criada, e ainda não está cadastrada em URLs, 
+                    no painel Google DFP no Wordpress, nenhum script do Double Click será inserido no header, 
+                    ainda que os slots já tenham sido adicionados à página, via shortcode ou widget.</p>
+
+                    <p>O mapeamento padrão permite que um script seja adicionado, com o nome de <strong>default</strong>, 
+                    adicionando os formatos <strong>middle</strong> e <strong>top</strong>, considerando duas áreas 
+                    comuns em templates wordpress, o topo e ao menos uma sidebar. Desta forma, a página é mapeada
+                    desde sua publicação, e o mapeamento de formatos pode ser especificado depois.</p>
+                </div>
+
+                <hr>
+
+                <div class="mapeamento_padrao">
+                    <h4>Como o mapeamento de formatos padrão funciona?</h4>
+
+                    <p>Será impresso no header um script conforme o exemplo abaixo.</p>
+
+                    <div class="gdfp_pre">
+                        <pre>
+                            var googletag = googletag || {},
+                            gptAdSlots = [],
+                            sizeMapping = {...};
+
+                            googletag.cmd = googletag.cmd || [];
+                            googletag.cmd.push(function() {
+                                ...
+
+                                gptAdSlots[0] = googletag.defineSlot('/0000000/default', sizeMapping.middle(), 'middle')
+                                    .defineSizeMapping(middleMapping)
+                                    .addService(googletag.pubads());
+                                gptAdSlots[1] = googletag.defineSlot('/0000000/default', sizeMapping.top(), 'top')
+                                    .defineSizeMapping(topMapping)
+                                    .addService(googletag.pubads());
+
+                                googletag.pubads().enableSingleRequest();
+                                googletag.pubads().collapseEmptyDivs();
+                                googletag.enableServices();
+                            });
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="padroes_nomenclatura">
+                <h3>Padrões de nomenclatura dos slots</h3>
+                
+                <p>Os padrões são a peça chave para que o mapeamento automático do plugin funcione corretamente,
+                e não haja inconsistências entre os slots e formatos cadastrados no admin do Wordpress e no painel
+                do Google Double Click.</p>
+
+                <strong>Padrões de nomenclatura dos formatos</strong>
+                <p>Os formatos devem seguir o padrão pré-definido no painel de cadastro. Estão disponíveis:
+                    <ul>
+                        <li>- middle</li>
+                        <li>- right</li>
+                        <li>- top</li>
+                    </ul>
+                </p>
+
+                <p>Os formatos podem se repetir, seguindo a numeração subsequente. Por exemplo: <strong>top</strong>,
+                <strong>top1</strong>, <strong>top2</strong>, e assim por diante.</p>
+
+                <p>Ao cadastrá-los no painel do Google Double Click, é imprescindível que os nomes sejam os mesmos 
+                aos associados à URL em questão, sem caracteres especiais, espaços, barras, e sempre em letras minúsculas.</p>
+                
+                <strong>Cadastro de novos grupos de formatos</strong>
+                <p>Utilize o painel deste plugin, no menu principal <strong>Google DFP Publicidade > Grupos de formatos</strong>
+                para cadastrar novas combinações de mapeamento de formatos, ou, se necessário, editar as já existentes.</p>
+
+                <hr>
+                
+                <div class="mapeamento_por_url">
+                    <h4>Como o mapeamento de formatos por URL funciona?</h4>
+                    <p>As URL do site podem conter um mapeamento específico de formatos, que pode ser adicionado em
+                    <strong>Google DFP Publicidade > URLs</strong>. Caso uma URL já exista, você pode editá-la.</p>
+                    
+                    <p>Não é necessário adicionar URLs de posts ou quaisquer post_types que estejam mapeados como 
+                    conteúdo no <a href="#arquivo_de_configuração">arquivo de configuração (map_as_auto_permalink)</a>
+                    O plugin se encarregará de inserir os scripts e formatos de acordo com o que está mapeado para a
+                    categoria correspondente.</p>
+
+                    <p>Ao renderizar a página, o plugin irá procurar pela URL entre os mapeamentos cadastrados no 
+                    plugin. Se encontrar uma correspondência exata, irá imprimir no header a definição de slots de
+                    acordo com o grupo de formatos configurado. Caso não encontre, será impresso um mapeamento padrão.</p>
+
+                    <div class="gdfp_pre">
+                        https://meusite.com.br/<strong>minha-pagina</strong>
+                    </div>
+
+                    <p>Para conteúdos dinâmicos, como posts por exemplo, o plugin irá procurar uma correspondência exata
+                    para a URL da categoria. caso não encontre, também será impresso o mapeamento padrão.</p>
+
+                    <div class="gdfp_pre">
+                        https://meusite.com.br/<strong>categoria/minha-categoria</strong>/titulo-do-meu-post
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            
+            <div id="pre_definicoes">
+                <h2>Pré-definições do plugin</h2>
+
+                <div id="size_mapping">
+                    <h3>Size Mapping</h3>
+                    <p>O size mapping permite especificar quais tamanhos de anúncios podem ser exibidos em cada espaço,
+                    levando em consideração a resolução do usuário. Por exemplo, para o espaço <strong>top</strong>,
+                    em resoluções desktop, podem ser exibidos os formatos <strong>[728, 90] e [970,90]</strong>, em
+                    tablets, <strong>[728, 90]</strong>, e mobile, <strong>[300, 50] e [300, 100]</strong>.</p>
+                    
+                    <p>No header, você encontrará um agrupamento por formatos e mapeamento, impresso antes da 
+                    definição de slots dinâmica (padrão ou por URL), conforme abaixo:</p>
+
+                    <div class="gdfp_pre">
+                        <pre>
+                        var googletag = googletag || {},
+                        gptAdSlots = [],
+                        sizeMapping = {
+                            'ad_sizes': {
+                                'alternative': [
+                                    [200, 446],
+                                    [220, 90],
+                                    [240, 133],
+                                    [292, 30],
+                                    [300, 31],
+                                    [970, 66],
+                                ],
+                                'button': [
+                                    [88, 31],
+                                    [120, 60],
+                                    [125, 125],
+                                ],
+                                'vertical_banner': [120, 240],
+                                'skyscraper': [120, 600],
+                                'wide_skyscraper': [160, 600],           
+                                'small_rectangle': [180, 150],
+                                'small_square': [200, 200],
+                                'half_banner': [234, 60],
+                                'square': [250, 250],
+                                'mobile_friendly': [
+                                    [300, 50],
+                                    [300, 100]
+                                ],
+                                'medium_rectangle': [300, 250],            
+                                'half_page': [300, 600],
+                                'portrait_iab_rising_star': [300, 1050],
+                                'mobile_leaderboard': [320, 100],
+                                'large_rectangle': [336, 280],   
+                                'banner': [468, 60],
+                                'leaderboard': [728, 90],           
+                                'pushdown_iab_rising_star': [960, 90],
+                                'large_leaderboard': [970, 90],
+                                'billboard_iab_rising_star': [970, 250]
+                            },
+                            'middle': function (){
+                                return [
+                                    this.ad_sizes.medium_rectangle,
+                                ];
+                            },
+                            'right': function (){
+                                return [
+                                    this.ad_sizes.wide_skyscraper, 
+                                    this.ad_sizes.medium_rectangle,
+                                ];
+                            },
+                            'top': function (){
+                                return [
+                                    this.ad_sizes.large_leaderboard, 
+                                    this.ad_sizes.leaderboard,
+                                    this.ad_sizes.mobile_friendly[0],
+                                    this.ad_sizes.mobile_friendly[1],
+                                ];
+                            },
+                        };
+                        
+                        googletag.cmd = googletag.cmd || [];
+                        googletag.cmd.push(function() {
+                        
+                            var middleMapping = <strong>googletag.sizeMapping()</strong>
+                                .addSize([0, 0], [sizeMapping.ad_sizes.medium_rectangle])
+                                .build(),
+                            rightMapping = <strong>googletag.sizeMapping()</strong>
+                                .addSize([1920, 1080], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1600, 900], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1536, 864], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1440, 900], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1366, 768], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1280, 800], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1280, 1024], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1280, 720], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([1024, 768], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([768, 1024], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([736, 414], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([720, 1280], [sizeMapping.ad_sizes.wide_skyscraper])
+                                .addSize([667, 375], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([640, 360], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([568, 320], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([534, 320], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([414, 736], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([375, 667], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([360, 640], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([320, 568], [sizeMapping.ad_sizes.medium_rectangle])
+                                .addSize([320, 534], [sizeMapping.ad_sizes.medium_rectangle])
+                                .build(),
+                            topMapping = <strong>googletag.sizeMapping()</strong>
+                                .addSize([1920, 1080], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1600, 900], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1536, 864], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1440, 900], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1366, 768], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1280, 800], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1280, 1024], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1280, 720], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([1024, 768], [sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+                                .addSize([768, 1024], [sizeMapping.ad_sizes.leaderboard])
+                                .addSize([736, 414], [sizeMapping.ad_sizes.leaderboard])
+                                .addSize([720, 1280], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([667, 375], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([640, 360], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([568, 320], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([534, 320], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([414, 736], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([375, 667], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([360, 640], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([320, 568], sizeMapping.ad_sizes.mobile_friendly)
+                                .addSize([320, 534], sizeMapping.ad_sizes.mobile_friendly)
+                                .build();
+                                ...
+                        </pre>
+                    </div>
+                </div>
+                
+                <hr>
+
+                <div id="enable_single_request">
+                    <h3>Enable Single Request</h3>
+
+                    <p>O Google Double Click permite <a href="https://support.google.com/dfp_premium/answer/1638622?hl=pt-BR" target="_blank">habilitar a requisição única</a> para cada espaço que será renderizado na página.
+                    O objetivo é fazer com que cada anúncio seja renderizado individualmente, e não seja necessário 
+                    que o usuário chegue ao último espaço rolando a página para que os anúncios sejam requisitados, 
+                    e exibidos.Consiste em adicionar uma linha ao script impresso no header após a definição de 
+                    slots, e já está pré-definido neste plugin.</p>
+
+                    <div class="gdfp_pre">
+                        <pre>
+                            ...
+                            <strong>googletag.pubads().enableSingleRequest();</strong>
+                            googletag.pubads().collapseEmptyDivs();
+                            googletag.enableServices();
+                        </pre>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="collapse_empty_divs">
+                    <h3>Collapse Empty Divs</h3>
+
+                    <p>O <a href="https://support.google.com/dfp_premium/answer/3072674?hl=pt-BR">recolhimento de elementos div vazios</a> é uma opção disponibilizada pelo Google Double Click
+                    que esconde os espaços onde o anúncio não pôde ser exibido. Consiste em adicionar uma linha ao 
+                    script impresso no header após a definição de slots, e já está pré-definido neste plugin.</p>
+
+                    <div class="gdfp_pre">
+                        <pre>
+                            ...
+                            <strong>googletag.pubads().collapseEmptyDivs();</strong>
+                            googletag.enableServices();
+                        </pre>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="arquivo_de_configuracao">
+                    <h3>Arquivo de configuração</h3>
+
+                    <p>O arquivo de configuração do plugin é criado com base no arquivo sample e configurado pelo desenvolvedor
+                    adicionar o plugin ao projeto, e especifica quais post types devem ser mapeados automaticamente 
+                    como conteúdo, de acordo com a estrutura do projeto.</p>
+
+                    <p>Visualize abaixo a configuração do arquivo neste ambiente. Para alterá-la, solicite ao 
+                    desenvolvedor que atualize o arquivo <strong>config.php</strong>, na raiz do plugin.</p>
+
+                    <div class="gdfp_config">
+                        <strong>[</strong>
+                        <br/>
+                        <div class="gdfp_specification">
+                            {% for specification, postTypes in config %}
+                                <strong>'{{ specification }}' => [</strong>
+                                <ul>
+                                    {% for postType in postTypes %}
+                                        <li>'{{ postType }}',</li>
+                                    {% endfor %}
+                                </ul>
+                                <strong>],</strong>
+                                <br />                
+                            {% endfor %}
+                        </div>
+                        <strong>];</strong>            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

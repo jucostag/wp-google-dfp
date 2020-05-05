@@ -1,0 +1,206 @@
+<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+
+<script>
+    var url_dfp_page = '/2695942/{{ prefixo }}/{{ url }}',
+    googletag = googletag || {},
+    gptAdSlots = [],
+    sizeMapping = {
+        'ad_sizes': {
+            'alternative': [
+                [200, 446],
+                [220, 90],
+                [240, 133],
+                [292, 30],
+                [300, 31],
+                [970, 66],
+            ],
+            'button': [
+                [88, 31],
+                [120, 60],
+                [125, 125],
+            ],
+            'vertical_banner': [120, 240],
+            'skyscraper': [120, 600],
+            'wide_skyscraper': [160, 600],
+            'small_rectangle': [180, 150],
+            'small_square': [200, 200],
+            'half_banner': [234, 60],
+            'square': [250, 250],
+            'mobile_friendly': [
+                [300, 50],
+                [300, 100]
+            ],
+            'medium_rectangle': [300, 250],
+            'half_page': [300, 600],
+            'portrait_iab_rising_star': [300, 1050],
+            'mobile_leaderboard': [320, 100],
+            'large_rectangle': [336, 280],
+            'banner': [468, 60],
+            'leaderboard': [728, 90],
+            'pushdown_iab_rising_star': [960, 90],
+            'large_leaderboard': [970, 90],
+            'billboard_iab_rising_star': [970, 250]
+        },
+        'middle': function (){
+            return [
+                this.ad_sizes.medium_rectangle,
+            ];
+        },
+        'right': function (){
+            return [
+                this.ad_sizes.half_page,
+                this.ad_sizes.wide_skyscraper,
+                this.ad_sizes.skyscraper,
+                this.ad_sizes.medium_rectangle,
+            ];
+        },
+        'firstTop': function (){
+            return [
+                this.ad_sizes.billboard_iab_rising_star,
+                this.ad_sizes.large_leaderboard,
+                this.ad_sizes.leaderboard,
+                this.ad_sizes.banner,
+                this.ad_sizes.mobile_leaderboard,
+                this.ad_sizes.mobile_friendly[0],
+                this.ad_sizes.mobile_friendly[1],
+            ];
+        },
+        'top': function (){
+            return [
+                this.ad_sizes.leaderboard,
+                this.ad_sizes.banner,
+                this.ad_sizes.mobile_leaderboard,
+                this.ad_sizes.mobile_friendly[0],
+                this.ad_sizes.mobile_friendly[1],
+            ];
+        },
+        'inContentTop': function (){
+            return [
+                this.ad_sizes.leaderboard,
+                this.ad_sizes.mobile_leaderboard,
+            ];
+        },
+    };
+
+    googletag.cmd = googletag.cmd || [];
+    googletag.cmd.push(function() {
+
+        var middleMapping = googletag.sizeMapping()
+            .addSize([0, 0], [sizeMapping.ad_sizes.medium_rectangle])
+            .build(),
+        rightMapping = googletag.sizeMapping()
+            .addSize([1920, 1080], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1600, 900], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1536, 864], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1440, 900], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1366, 768], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1280, 800], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1280, 1024], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1280, 720], [sizeMapping.ad_sizes.half_page, sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([1024, 768], [sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([768, 1024], [sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([736, 414], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([720, 1280], [sizeMapping.ad_sizes.wide_skyscraper, sizeMapping.ad_sizes.skyscraper])
+            .addSize([667, 375], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([640, 360], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([568, 320], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([534, 320], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([414, 736], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([375, 667], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([360, 640], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([320, 568], [sizeMapping.ad_sizes.medium_rectangle])
+            .addSize([320, 534], [sizeMapping.ad_sizes.medium_rectangle])
+            .build(),
+        firstTopMapping = googletag.sizeMapping()
+            .addSize([1920, 1080], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1600, 900], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1536, 864], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1440, 900], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1366, 768], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 800], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 1024], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 720], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([1024, 768], [sizeMapping.ad_sizes.billboard_iab_rising_star, sizeMapping.ad_sizes.large_leaderboard, sizeMapping.ad_sizes.leaderboard])
+            .addSize([768, 1024], [sizeMapping.ad_sizes.leaderboard, sizeMapping.ad_sizes.banner])
+            .addSize([736, 414], [sizeMapping.ad_sizes.leaderboard, sizeMapping.ad_sizes.banner])
+            .addSize([720, 1280], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([667, 375], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([640, 360], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([568, 320], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([534, 320], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([414, 736], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([375, 667], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([360, 640], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([320, 568], sizeMapping.ad_sizes.mobile_friendly)
+            .addSize([320, 534], sizeMapping.ad_sizes.mobile_friendly)
+            .build(),
+        topMapping = googletag.sizeMapping()
+            .addSize([1920, 1080], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1600, 900], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1536, 864], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1440, 900], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1366, 768], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 800], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 1024], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 720], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1024, 768], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([768, 1024], [sizeMapping.ad_sizes.leaderboard, sizeMapping.ad_sizes.banner])
+            .addSize([736, 414], [sizeMapping.ad_sizes.leaderboard, sizeMapping.ad_sizes.banner])
+            .addSize([720, 1280], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([667, 375], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([640, 360], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([568, 320], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([534, 320], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([414, 736], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([375, 667], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([360, 640], [sizeMapping.ad_sizes.mobile_leaderboard, sizeMapping.ad_sizes.mobile_friendly[0], sizeMapping.ad_sizes.mobile_friendly[1]])
+            .addSize([320, 568], sizeMapping.ad_sizes.mobile_friendly)
+            .addSize([320, 534], sizeMapping.ad_sizes.mobile_friendly)
+            .build(),
+        inContentTopMapping = googletag.sizeMapping()
+            .addSize([1920, 1080], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1600, 900], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1536, 864], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1440, 900], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1366, 768], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 800], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 1024], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1280, 720], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([1024, 768], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([768, 1024], [sizeMapping.ad_sizes.leaderboard])
+            .addSize([736, 414], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([720, 1280], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([667, 375], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([640, 360], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([568, 320], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([534, 320], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([414, 736], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([375, 667], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([360, 640], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([320, 568], [sizeMapping.ad_sizes.mobile_leaderboard])
+            .addSize([320, 534], [sizeMapping.ad_sizes.mobile_leaderboard]);
+
+        {% set replaceMask = {'0': '', '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : ''} %}
+        {% for formato in formatos %}
+            {% if formato == 'top' %}
+                gptAdSlots[{{ loop.index0 }}] = googletag.defineSlot('/2695942/{{ prefixo }}//{{ url }}', sizeMapping.firstTop(), '{{ formato }}')
+                .defineSizeMapping(firstTopMapping)
+                .addService(googletag.pubads());
+            {% elseif formato == 'in-content' %}
+                gptAdSlots[{{ loop.index0 }}] = googletag.defineSlot('/2695942/{{ formato }}', sizeMapping.inContentTop(), '{{ formato }}')
+                .defineSizeMapping(inContentTopMapping)
+                .addService(googletag.pubads());
+            {% else %}
+                gptAdSlots[{{ loop.index0 }}] = googletag.defineSlot('/2695942/{{ prefixo }}//{{ url }}', sizeMapping.{{ formato | replace(replaceMask) }}(), '{{ formato }}')
+                .defineSizeMapping({{ formato | replace(replaceMask) }}Mapping)
+                .addService(googletag.pubads());
+            {% endif %}
+        {% endfor %}
+        
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+    });
+
+    setInterval(function(){ googletag.pubads().refresh(); }, 45000);
+</script>

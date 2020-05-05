@@ -1,0 +1,106 @@
+{% include 'admin/panel/action_status.html' %}
+<div class="google_dfp formats">
+        <h1 class="wp-heading-inline">Google DFP Publicidade | Grupos de formatos</h1>
+        <p>Os formatos que serão exibidos em uma URL podem ser agrupados, de forma que possa ser reutilizado em outras URLs.</p>
+        <p><a href="/wp-admin/admin.php?page=google-dfp-docs">Dúvidas? Veja como funciona clicando aqui.</a></p>
+        <p class="search-box gdfp_create_format_groups_form">
+            <form action="" method="POST">
+                <h3>Cadastrar grupo de formatos</h3>
+                <p>Para adicionar mais de uma unidade do mesmo formato, selecione o checkbox, e clique no botão "+" ao lado, e para remover, clique no botão "x".</p>
+                <input type="hidden" name="action" value="create_formats_group"/>
+                <div class="gdfp_checkbox_group gdfp_middle_checkbox_group">
+                    <button class="button gdfp_remove_format_checkbox gdfp_middle_btn" data-format="middle" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                    <button class="button gdfp_add_format_checkbox gdfp_middle_btn" data-format="middle" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                    <label><input type="checkbox" name="group_formats[]" value="middle" class="gdfp_first_checkbox" data-format="middle">middle</label>
+                </div>
+                <br />
+                <div class="gdfp_checkbox_group gdfp_right_checkbox_group">
+                    <button class="button gdfp_remove_format_checkbox gdfp_right_btn" data-format="right" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                    <button class="button gdfp_add_format_checkbox gdfp_right_btn" data-format="right" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                    <label><input type="checkbox" name="group_formats[]" value="right" class="gdfp_first_checkbox" data-format="right">right</label>
+                </div>
+                <br />
+                <div class="gdfp_checkbox_group gdfp_top_checkbox_group">
+                    <button class="button gdfp_remove_format_checkbox gdfp_top_btn" data-format="top" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                    <button class="button gdfp_add_format_checkbox gdfp_top_btn" data-format="top" disabled="disabled"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                    <label><input type="checkbox" name="group_formats[]" value="top" class="gdfp_first_checkbox" data-format="top">top</label>
+                </div>
+                <br />
+                <input type="submit" class="button" value="Criar grupo com formatos selecionados">
+            </form>
+        </p>
+        
+        {% include 'admin/panel/pagination.html' %}
+        
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <td width="5%" scope="col" class="manage-column">Editar</td>
+                    <td scope="col" class="manage-column">Formatos</td>
+                </tr>
+            </thead>
+            
+            <tbody id="the-list">
+                {% for grupo in grupos_formatos %}        
+                    <tr id="grupo-{{ grupo.ID }}" class="iedit type-post status-publish format-standard hentry">
+                        <td scope="row" class="check-author">
+                            <button class="gdfp_edit" data-form="gdfp_edit_group_{{ grupo.ID }}">
+                                <div class="dashicons dashicons-edit"></div>
+                            </button>
+                        </td>
+                        <td>
+                            <h2><strong>{{ grupo.group_name }}</strong></h3>
+                            <div id="gdfp_edit_group_{{ grupo.ID }}" style="display: none;">
+                                <h3>Editar formatos do grupo</h3>
+                                <form action="" method="POST">
+                                    <input type="hidden" name="action" value="edit_formats_group"/>
+                                    <input type="hidden" name="ID" value="{{ grupo.ID }}"/>
+                                    <div class="gdfp_checkbox_group gdfp_middle_checkbox_group">
+                                        <button class="button gdfp_edit_group_btn gdfp_remove_format_checkbox gdfp_middle_btn" data-format="middle" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                                        <button class="button gdfp_edit_group_btn gdfp_add_format_checkbox gdfp_middle_btn" data-format="middle" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                                        {% for format in grupo.group_formats %}
+                                            {% if 'middle' in format  %}
+                                                <label><input {% if format == 'middle' %} class="gdfp_first_checkbox" {% endif %} type="checkbox" name="group_formats[]" value="{{ format }}" checked="checked" data-format="middle">{{ format }}</label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <br />
+                                    <div class="gdfp_checkbox_group gdfp_right_checkbox_group">
+                                        <button class="button gdfp_edit_group_btn gdfp_remove_format_checkbox gdfp_right_btn" data-format="right" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                                        <button class="button gdfp_edit_group_btn gdfp_add_format_checkbox gdfp_right_btn" data-format="right" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                                        {% for format in grupo.group_formats %}
+                                            {% if 'right' in format  %}
+                                                <label><input {% if format == 'right' %} class="gdfp_first_checkbox" {% endif %} type="checkbox" name="group_formats[]" value="{{ format }}" checked="checked" data-format="right">{{ format }}</label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <br />
+                                    <div class="gdfp_checkbox_group gdfp_top_checkbox_group">
+                                        <button class="button gdfp_edit_group_btn gdfp_remove_format_checkbox gdfp_top_btn" data-format="top" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-dismiss"></span></button>
+                                        <button class="button gdfp_edit_group_btn gdfp_add_format_checkbox gdfp_top_btn" data-format="top" data-group="{{ grupo.ID }}"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span></button>
+                                        {% for format in grupo.group_formats %}
+                                            {% if 'top' in format  %}
+                                                <label><input {% if format == 'top' %} class="gdfp_first_checkbox" {% endif %} type="checkbox" name="group_formats[]" value="{{ format }}" checked="checked" data-format="top">{{ format }}</label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <br />
+                                    <input type="submit" class="button" value="Salvar alterações">
+                                </form>
+                            </div>
+                            <h4>Formatos</h4>
+                            <div class="gdfp_formats_list">
+                                {% set replaceMask = {'0': '', '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : ''} %}        
+                                {% for format in grupo.group_formats %}
+                                    <span class="gdfp_format gdfp_{{ format | replace(replaceMask) }}">{{ format }}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        {% include 'admin/panel/pagination.html' %}
+        
+    </div>

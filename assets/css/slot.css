@@ -1,0 +1,6 @@
+.gdfp_container{width:960px; margin:0px auto 20px auto; }
+.gdfp_container .gdfp_container_title{  font-size: 10px; font-weight: 400; color: #BDBDBD; padding-top: 22px; margin-bottom: 9px;} 
+.gdfp_container .gdfp_hide{width:100%; cursor:pointer; }
+.gdfp_container .gdfp_hide:hover{color:#999; }
+.gdfp_container .gdfp_hide i.fa{font-size: 14px; margin-right:5px; }
+.gdfp_container .gdfp_superbanner{background:#f8f8f8; padding:10px; text-align:center; }

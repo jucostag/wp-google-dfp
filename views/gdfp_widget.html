@@ -1,0 +1,9 @@
+{{ before_widget | raw }}
+    {% if title %}
+        {{ before_title | raw }}
+            {{ title | raw }}
+        {{ after_title | raw }}
+    {% endif %}
+    
+    {% include 'gdfp_slot.html' %}
+{{ after_widget | raw }}

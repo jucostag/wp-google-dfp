@@ -1,0 +1,18 @@
+<div id="gdfp_{{ area }}" class="gdfp_container {% if ad_class %} {{ ad_class }} {% endif %}" {% if area == 'in-content' %} style="display:none;" {% endif %}>
+
+    {% if format == 'super' %}
+    <div class="gdfp_superbanner">
+    {% endif %}
+
+        <div id="{{ area }}" class="banner-{{ area }}">
+            <script>
+                googletag.cmd.push(function() { 
+                    googletag.display('{{ area }}');
+                });
+            </script>
+        </div>
+
+    {% if format == 'super' %}
+    </div>
+    {% endif %}
+</div>

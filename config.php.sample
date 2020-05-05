@@ -1,0 +1,12 @@
+<?php
+return [
+    'prefix' => 'TV',
+    'post_types_mapping' => [
+        'map_as_page' => [
+            'page',
+        ],
+        'map_as_auto_permalink' => [
+            'post',
+        ],
+    ]
+];

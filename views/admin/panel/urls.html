@@ -1,0 +1,171 @@
+{% include 'admin/panel/action_status.html' %}
+<div class="google_dfp urls">
+    <h1 class="wp-heading-inline">Google DFP Publicidade | Especificação de formatos por URL</h1>
+    <p>As URLs cadastradas permitem a especificação de um grupo de formatos diferente do padrão. Se a URL for de uma categoria ou outra taxonomia, os posts serão mapeados automaticamente com as novas especificações.</p>
+    <p><a href="/wp-admin/admin.php?page=google-dfp-docs">Dúvidas? Veja como funciona clicando aqui.</a></p>
+    
+    <div class="gdfp_form_header">
+        <form action="" method="POST">
+            <h3>Cadastrar URLs</h3>
+            <p class="search-box gdfp_create_urls_form">
+                <input type="hidden" name="action" value="create_urls"/>
+                <div>
+                    <label>Grupo de formatos</label>
+                    <br />
+                    <select name="group_id" class="gdfp_submit">
+                        {% for grupo in grupos_formatos %}
+                            <option value="{{ grupo.ID }}">{{ grupo.group_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="gdfp_urls_inputs">
+                    <div>
+                        <label class="gdfp_input_url_label">URL 1</label>
+                        <input type="text" name="slot_url[]" value="" class="create_input gdfp_text_input">
+                    </div>
+                </div>
+                <button class="button gdfp_add_url_field"><span class="gdfp_add_url_dashicon dashicons dashicons-plus-alt"></span> Adicionar outra URL</button>
+                <br/><br/>
+                <input type="submit" class="button gdfp_submit" value="Cadastrar URL(s)">
+            </p>
+        </form>
+
+        <hr>
+        
+        <form action="" method="GET">
+            <h3>Filtrar URLs</h3>
+            <br />
+            <p class="search-box gdfp_filter_form">
+                <input type="hidden" name="page" value="google-dfp-urls" />
+                <input type="search" id="post-search-input" name="filter" value="" class="create_input gdfp_text_input">
+                <input type="submit" id="search-submit" class="button" value="Procurar URLs">
+            </p>
+        </form>
+    </div>
+    
+    {% include 'admin/panel/pagination.html' %}
+    
+    <table class="wp-list-table widefat fixed striped">
+        <thead>
+            <tr>
+                <td width="5%" scope="col" class="manage-column">Excluir</td>
+                <td width="5%" scope="col" class="manage-column">Editar</td>
+                <td width="90%" scope="col" class="manage-column">URL (bloco)</td>
+            </tr>
+        </thead>
+        
+        <tbody id="the-list">
+            {% for url in urls %}        
+                <tr id="url-{{ url.url_id }}" class="iedit type-post status-publish format-standard hentry">
+                    <td scope="row" class="check-author">			
+                        <form action="" method="POST" class="gdfp_delete_url_form">
+                            <input type="hidden" name="action" value="delete_cascade"/>
+                            <input type="hidden" name="url" value="{{ url.slot_url }}"/>
+                            <input type="hidden" name="ID" value="{{ url.url_id }}"/>
+                            <input type="hidden" name="related_ID" value="{{ url.content.url_id }}"/>
+                            <button type="submit">
+                                <div class="dashicons dashicons-trash"></div>
+                            </button>
+                        </form>
+                    </td>
+                    <td scope="row" class="check-author">			
+                        <button class="gdfp_edit" data-form="gdfp_edit_url_{{ url.url_id }}">
+                            <div class="dashicons dashicons-edit"></div>
+                        </button>
+                    </td>
+                    <td>
+                        <div id="gdfp_edit_url_{{ url.url_id }}" style="display: none;">
+                            <h3>Edição de mapeamento da URL</h3>
+                            <form action="" method="POST">
+                                <input type="hidden" name="action" value="edit_url"/>
+                                <input type="hidden" name="ID" value="{{ url.url_id }}"/>
+                                <label>URL</label>
+                                <br/>
+                                <input type="text" name="slot_url" value="{{ url.slot_url }}"/>
+                                <br/>
+                                <label>Grupo de formatos</label>
+                                <br/>
+                                <select name="group_id">
+                                    {% for grupo in grupos_formatos %}
+                                        <option value="{{ grupo.ID }}" {% if url.group_id == grupo.ID %} selected="selected" {% endif %}>{{ grupo.group_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="button">Salvar alterações</button>
+                            </form>
+                            
+                            <br />
+
+                            <h4 class="gdfp_content_formats_title gdfp_content_form_btn" data-open="{{ url.url_id }}"><span class="dashicons dashicons-arrow-down-alt2"></span> Configurações do conteúdo</h4>
+                            
+                            <div id="gdfp_content_formats_form_{{ url.url_id }}" class="gdfp_content_formats_form" style="display: none;">
+                                <p class="gdfp_description">Grupo de formatos exibido no conteúdo abaixo desta URL na hierarquia, 
+                                como posts, por exemplo. Caso seja deixado em branco, os posts continuarão a exibir o mesmo mapeamento da URL principal.</p>
+                                <h4 class="gdfp_content_formats_title">
+                                    {% if url.content.url_id %}Editar {% else %}Criar {% endif %}                                        
+                                    mapeamento - <strong class="gdfp_url_prefix">{{ prefixo }}/{{ url.slot_url }}/*</strong>
+                                </h4>
+                                <small class="gdfp_instructions">Crie no painel do Google DFP um mapeamento para o conteúdo desta URL, separadamente da página, 
+                                usando a nomenclatura indicada acima, em cinza, e incluindo o grupo de formatos selecionado.</small>
+                                {% if url.content.url_id %}
+                                    <form action="" method="POST" class="gdfp_delete_url_form">
+                                        <input type="hidden" name="action" value="delete"/>
+                                        <input type="hidden" name="ID" value="{{ url.content.url_id }}"/>
+                                        <button type="submit" class="button" style="color: crimson"><div class="dashicons dashicons-trash"></div> Remover mapeamento de conteúdo</button>
+                                    </form>
+                                {% endif %}
+                                <br><span>---OU---</span><br><br>
+                                <form action="" method="POST">
+                                    {% if url.content.url_id %}
+                                        <input type="hidden" name="action" value="edit_url"/>
+                                        <input type="hidden" name="ID" value="{{ url.content.url_id }}"/>
+                                        <input type="hidden" name="slot_url" value="{{ url.slot_url }}/*"/>                                    
+                                        <label style="color: darkgreen"><span class="dashicons dashicons-edit"></span> Alterar o grupo de formatos</label><br><br>
+                                    {% else %}
+                                        <input type="hidden" name="action" value="create_urls"/>                                
+                                        <input type="hidden" name="slot_url[]" value="{{ url.slot_url }}/*"/>
+                                    {% endif %}
+                                    <select name="group_id">
+                                        {% if not url.content.url_id %}
+                                            <option value="nenhum">-- Selecione --</option>
+                                        {% endif %}
+                                        {% for grupo in grupos_formatos %}
+                                            <option value="{{ grupo.ID }}" {% if url.content.group_id == grupo.ID %} selected="selected" {% endif %}>{{ grupo.group_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="button">Salvar alterações</button>
+                                </form>
+                            </div>
+                            <br><br><hr><br><br>
+                        </div>
+
+                        <h2><strong class="gdfp_url_prefix">{{ prefixo }}/</strong>{{ url.slot_url }}</h2>
+                        
+                        <div class="gdfp_formats_list">
+                            {% set replaceMask = {'0': '', '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : ''} %}        
+                            {% for format in url.group_formats %}
+                                <span class="gdfp_format gdfp_{{ format | replace(replaceMask) }}">{{ format }}</span>
+                            {% endfor %}
+                        </div>
+
+                        {% if url.content.group_formats %}
+                            <div class="gdfp_formats_list_content">
+                                <h3><strong class="gdfp_url_prefix">{{ prefixo }}/</strong>{{ url.content.slot_url }}</h3>
+
+                                <div class="gdfp_formats_list">
+                                    {% set replaceMask = {'0': '', '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : ''} %}        
+                                    {% for format in url.content.group_formats %}
+                                        <span class="gdfp_format gdfp_{{ format | replace(replaceMask) }}">{{ format }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <br><br>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'admin/panel/pagination.html' %}
+    
+</div>

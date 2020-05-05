@@ -1,0 +1,20 @@
+<div class="wrap">
+    <h2>Google DFP - Opções</h2>
+    
+    <form method="post" action="options.php">
+    
+        {{ settings_fields | raw }}
+        
+        {{ do_sections | raw }}
+
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row">Extra Scripts</th>
+                <td><textarea name="extrascripts" rows="10" cols="100">{{ extrascripts_field | raw }}</textarea></td>
+            </tr>
+        </table>
+        
+        {{ submit_button | raw }}
+    
+    </form>
+</div>

@@ -1,0 +1,59 @@
+<div class="gdfp_action_status {% if action_status is not null %}active{% endif %}" style="display: none;">
+    {% if action_status['create_urls'] %}
+
+        {% for url, status in action_status['create_urls'] %}
+            {% if status >= 1 %}
+                <div class="gdfp_alert gdfp_alert--success">A URL <strong>"{{ url }}"</strong> foi inserida com sucesso!</div>
+            {% elseif status == false %}
+                <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao cadastrar a URL <strong>"{{ url }}"</strong>.</div>
+            {% else %}
+                <div class="gdfp_alert gdfp_alert--warning">A URL <strong>"{{ url }}"</strong> já existe.</div>
+            {% endif %}
+        {% endfor %}
+
+    {% elseif action_status['edit_url'] %}
+
+        {% if action_status['edit_url'] >= 1 %}
+            <div class="gdfp_alert gdfp_alert--success">A URL foi atualizada com sucesso!</div>
+        {% else %}             
+            <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao cadastrar a URL <strong>"{{ url }}"</strong>.</div>
+        {% endif %}
+
+    {% elseif action_status['create_formats_group'] %}
+
+         {% if action_status['create_formats_group'] >=1 %}
+             <div class="gdfp_alert gdfp_alert--success">O grupo foi inserido com sucesso!</div>
+         {% elseif action_status['create_formats_group'] == false %}
+             <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao cadastrar o grupo.</div>
+         {% else %}
+             <div class="gdfp_alert gdfp_alert--warning">Um grupo com estes formatos já existe.</div>
+         {% endif %}
+
+    {% elseif action_status['edit_formats_group'] %}
+
+         {% if action_status['edit_formats_group'] >=1 %}
+             <div class="gdfp_alert gdfp_alert--success">O grupo foi atualizado com sucesso!</div>
+         {% elseif action_status['edit_formats_group'] == false %}
+             <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao atualizar o grupo.</div>
+         {% else %}
+             <div class="gdfp_alert gdfp_alert--warning">Um grupo com estes formatos já existe.</div>
+         {% endif %}
+
+    {% elseif action_status['delete'] %}
+
+        {% if action_status['delete'] >= 1 %}
+            <div class="gdfp_alert gdfp_alert--success">Exclusão feita com sucesso!</div>
+        {% else %}
+            <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao tentar excluir.</div>
+        {% endif %}
+
+    {% elseif action_status['delete_cascade'] %}
+
+        {% if action_status['delete_cascade']['url'] >= 1 and action_status['delete_cascade']['related_url'] >= 1%}
+            <div class="gdfp_alert gdfp_alert--success">Exclusão da URL principal e do mapeamento de conteúdo feitas com sucesso!</div>        
+        {% else %}
+            <div class="gdfp_alert gdfp_alert--danger">Ocorreu um erro inesperado ao tentar excluir.</div>
+        {% endif %}
+
+    {% endif %}
+</div>
