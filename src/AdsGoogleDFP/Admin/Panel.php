@@ -33,8 +33,14 @@ class Panel extends WpGoogleDFP
     public function renderUrlsPage()
     {
         $this->doFormAction('google-dfp-urls');
+
+        $actionStatus = 'none';
+        if(isset($_POST['action_status']) && !is_null($_POST['action_status'])) {
+            $actionStatus = $_POST['action_status'];
+        }
+
         $content = [
-            'action_status' => $_POST['action_status'],
+            'action_status' => $actionStatus,
             'prefixo' => $this->config->getPrefix(),
             'grupos_formatos' => $this->getFormatGroups(false),            
             'urls' => $this->getUrlFormats(),
@@ -68,7 +74,7 @@ class Panel extends WpGoogleDFP
 
     private function doFormAction($page)
     {
-        if (!isset($_POST) || is_null($_POST)) {
+        if (!isset($_POST['action']) || is_null($_POST['action'])) {
             return;
         }
 
